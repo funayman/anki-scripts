@@ -10,7 +10,8 @@ import (
 )
 
 const (
-  SoundFormat = "[sound:%s]"
+  SoundWordFormat = "[sound:N2v_%04d.mp3]"
+  SoundBunFormat = "[sound:N2v_%04ds.mp3]"
 )
 
 var (
@@ -19,7 +20,20 @@ var (
 
 func addWordsToDb(words []string) {
   for _, word := range words {
-    fmt.Println(word)
+    index := getLastIndex()
+    var rslt string
+    bookDB.QueryRow("SELECT kanji FROM word WHERE kanji = ?", word).Scan(&rslt)
+
+    if rslt == "" {
+      bookDB.Exec("INSERT INTO word (id, kanji, sound_word, sound_bun) VALUES (?, ?, ?, ?)",
+        index, word, fmt.Sprintf(SoundWordFormat, index), fmt.Sprintf(SoundBunFormat, index))
+    } else {
+      bookDB.Exec("UPDATE word SET id = ?, sound_word = ?, sound_bun = ? WHERE kanji = ?",
+        index, fmt.Sprintf(SoundWordFormat, index), fmt.Sprintf(SoundBunFormat, index), word)
+    }
+
+    // update the index
+    bookDB.Exec("UPDATE lindex SET last_index = ?", index + 1)
   }
 }
 

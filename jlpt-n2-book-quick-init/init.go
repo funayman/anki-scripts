@@ -51,7 +51,7 @@ func init() {
 
   bookDB.Exec("DROP TABLE IF EXISTS word")
   bookDB.Exec("CREATE TABLE lindex(last_index int)")
-  bookDB.Exec("CREATE TABLE word (id INT DEFAULT 0, eng VARCHAR, disp VARCHAR, jpn VARCHAR, kana VARCHAR, kanji VARCHAR, bun_jpn VARCHAR, bun_eng VARCHAR, sound_word VARCHAR, sound_bun)")
+  bookDB.Exec("CREATE TABLE word (id INT DEFAULT 0, eng VARCHAR, jpn VARCHAR, kana VARCHAR, kanji VARCHAR, bun_jpn VARCHAR, bun_eng VARCHAR, sound_word VARCHAR, sound_bun)")
 
   bookDB.Exec("DROP TABLE IF EXISTS lindex")
   bookDB.Exec("CREATE TABLE lindex (last_index)")
