@@ -3,14 +3,9 @@ package main
 import (
   "database/sql"
   "encoding/json"
-//  "errors"
-//  "fmt"
-//  "io"
   "log"
-//  "os"
   "strconv"
   "strings"
-//  "time"
 
   _ "github.com/mattn/go-sqlite3"
 )
