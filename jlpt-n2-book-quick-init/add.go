@@ -27,7 +27,7 @@ func addWordsToDb(words []string) {
 
 		if rslt == "" {
 			bookDB.Exec("INSERT INTO word (id, kanji, sound_word, sound_bun, eng, jpn) VALUES (?, ?, ?, ?, ?, ?)",
-				index, word, fmt.Sprintf(SoundWordFormat, index), fmt.Sprintf(SoundBunFormat, index), NilDefaultStr)
+				index, word, fmt.Sprintf(SoundWordFormat, index), fmt.Sprintf(SoundBunFormat, index), NilDefaultStr, NilDefaultStr)
 		} else {
 			bookDB.Exec("UPDATE word SET id = ?, sound_word = ?, sound_bun = ? WHERE kanji = ?",
 				index, fmt.Sprintf(SoundWordFormat, index), fmt.Sprintf(SoundBunFormat, index), word)
