@@ -56,7 +56,7 @@ func exportAll() {
 			log.Fatal(err)
 		}
 
-		fmt.Printf("%s|%s|%s|%s|%s|%s|%s|%s|%s\n", id.String, eng.String, jpn.String, kana.String, kanji.String, bun_jpn.String, bun_eng.String, sound_word.String, sound_bun.String)
+		fmt.Printf("%s|%s|%s|%s|%s|%s|%s|%s|%s\n", id.String, eng.String, jpn.String, kana.String, kanji.String, bun_jpn.String, bun_eng.String, sound_bun.String, sound_word.String)
 	}
 }
 
