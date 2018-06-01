@@ -12,6 +12,7 @@ import (
 const (
 	SoundWordFormat = "[sound:N2v_%04d.mp3]"
 	SoundBunFormat  = "[sound:N2v_%04ds.mp3]"
+	NilDefaultStr   = "FIX ME"
 )
 
 var (
@@ -25,8 +26,8 @@ func addWordsToDb(words []string) {
 		bookDB.QueryRow("SELECT kanji FROM word WHERE kanji = ?", word).Scan(&rslt)
 
 		if rslt == "" {
-			bookDB.Exec("INSERT INTO word (id, kanji, sound_word, sound_bun) VALUES (?, ?, ?, ?)",
-				index, word, fmt.Sprintf(SoundWordFormat, index), fmt.Sprintf(SoundBunFormat, index))
+			bookDB.Exec("INSERT INTO word (id, kanji, sound_word, sound_bun, eng, jpn) VALUES (?, ?, ?, ?, ?, ?)",
+				index, word, fmt.Sprintf(SoundWordFormat, index), fmt.Sprintf(SoundBunFormat, index), NilDefaultStr)
 		} else {
 			bookDB.Exec("UPDATE word SET id = ?, sound_word = ?, sound_bun = ? WHERE kanji = ?",
 				index, fmt.Sprintf(SoundWordFormat, index), fmt.Sprintf(SoundBunFormat, index), word)
@@ -66,7 +67,6 @@ func usageAndExit() {
 
 func init() {
 	var err error
-	//open Anki DB
 	bookDB, err = sql.Open("sqlite3", "./book.db")
 	if err != nil {
 		log.Fatal(err)
